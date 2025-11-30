@@ -15,7 +15,6 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(newBook);
 }
 
-// dummy
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
 addBookToLibrary("1984", "George Orwell", 328, false);
 
@@ -49,7 +48,7 @@ document.querySelector("#bookForm").addEventListener("submit", function(event) {
     const title = document.querySelector("#title").value;
     const author = document.querySelector("#author").value;
     const pages = document.querySelector("#pages").value;
-    const read = document.querySelector("#read").value;
+    const read = document.querySelector("#read").checked;
 
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
