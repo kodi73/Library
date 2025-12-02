@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <h1>My Library</h1>
-    <button id="newBookBtn">New Book</button>
+    <div class="headerBar">
+        <h1>My Library</h1>
+        <button id="newBookBtn">New Book</button>
+    </div>
     <dialog id="bookDialog">
         <form id="bookForm">
             <label for="bookTitle">Title: </label>
@@ -18,7 +20,7 @@
             <input type="text" name="bookAuthor" id="author" required><br>
 
             <label for="bookPages">Pages: </label>
-            <input type="text" name="bookPages" id="pages" required><br>
+            <input type="number" name="bookPages" id="pages" required><br>
 
             <label for="bookReadStatus">Read: </label>
             <input type="checkbox" name="bookReadStatus" id="read"><br>
@@ -27,7 +29,7 @@
             <button type="button" id="closeDialog">Cancel</button>
         </form>
     </dialog>
-    <div id="library-container">
+    <div id="library-container" class="library-grid">
 
     </div>
     <script src="scripts/main.js"></script>
