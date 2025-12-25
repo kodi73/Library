@@ -7,7 +7,7 @@ class Book {
         this.id = crypto.randomUUID();
     }
 
-    toggleRead = function () {
+    toggleRead() {
         this.read = !this.read;
     }
 }
@@ -19,6 +19,10 @@ class Library {
 
     addBook(book) {
         this.books.push(book);
+    }
+
+    removeBook(id) {
+        this.books = this.books.filter(book => book.id !== id);
     }
 }
 
