@@ -38,32 +38,40 @@ function displayBooks(books) {
     books.forEach(book => {
         const card = document.createElement("div");
         card.className = "book-card";
-        card.innerHTML = `
-            <h3>${book.title}</h3>
-            <p>Author: ${book.author}</p>
-            <p>Pages: ${book.pages}</p>
-            <p>Read: ${book.read ? "Yes" : "No"}</p>
-            <button class="toggleBtn" data-id="${book.id}">Toggle Status</button>
-            <button class="removeBtn" data-id="${book.id}">❌</button>
-        `;
+
+        const title = document.createElement("h3");
+        title.textContent = book.title;
+
+        const author = document.createElement("p");
+        author.textContent = `Author: ${book.author}`;
+
+        const pages = document.createElement("p");
+        pages.textContent = `Pages: ${book.pages}`;
+
+        const read = document.createElement("p");
+        read.textContent = `Read: ${book.read ? "Yes" : "No"}`;
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.textContent = "Toggle Read";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+
+        // ===== EVENT WIRING =====
+
+        toggleBtn.addEventListener("click", () => {
+            book.toggleRead();
+            displayBooks(library.books);
+        });
+
+        removeBtn.addEventListener("click", () => {
+            library.removeBook(book.id);
+            displayBooks(library.books);
+        });
+
+        card.append(title, author, pages, read, toggleBtn, removeBtn);
         libraryContainer.appendChild(card);
     })
-}
-
-function removeBook(bookId) {
-    const index = myLibrary.findIndex(book => book.id === bookId);
-    if (index !== -1) {
-        myLibrary.splice(index, 1);
-        displayBooks();
-    }
-}
-
-function toggleReadStatus(id) {
-    const book = myLibrary.find(book => book.id === id);
-    if (book) {
-        book.toggleRead();
-        displayBooks();
-    }
 }
 
 document.querySelector("#newBookBtn").addEventListener("click", () => {
@@ -103,4 +111,4 @@ libraryContainer.addEventListener("click", function(event) {
 })
 
 
-displayBooks()
+displayBooks(library.books);
