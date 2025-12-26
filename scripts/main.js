@@ -1,60 +1,74 @@
-const myLibrary = [];
-const libraryContainer = document.getElementById("library-container");
+  const myLibrary = [];
+  const libraryContainer = document.getElementById("library-container");
 
+  class Book {
+    constructor(title, author, pages, read) {
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.read = read;
+      this.id = crypto.randomUUID();
+    }
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = crypto.randomUUID();
-}
+    toggleRead() {
+      this.read = !this.read;
+    }
+  }
 
-function addBookToLibrary(title, author, pages, read) {
+  function addBookToLibrary(title, author, pages, read) {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
-}
+  }
 
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addBookToLibrary("1984", "George Orwell", 328, false);
+  addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+  addBookToLibrary("1984", "George Orwell", 328, false);
 
-function displayBooks() {
+  function displayBooks() {
     libraryContainer.innerHTML = "";
 
     myLibrary.forEach(book => {
-        const card = document.createElement("div");
-        card.className = "book-card";
-        card.innerHTML = `
-            <h3>${book.title}</h3>
-            <p>Author: ${book.author}</p>
-            <p>Pages: ${book.pages}</p>
-            <p>Read: ${book.read ? "Yes" : "No"}</p?
-        `;
-        libraryContainer.appendChild(card);
-    })
-}
+      const card = document.createElement("div");
+      card.className = "book-card";
 
-document.querySelector("#newBookBtn").addEventListener("click", () => {
-    document.querySelector("#bookDialog").showModal();
-});
+      card.innerHTML = `
+        <h3>${book.title}</h3>
+        <p>Author: ${book.author}</p>
+        <p>Pages: ${book.pages}</p>
+        <p>Read: ${book.read ? "Yes" : "No"}</p>
+      `;
 
-document.querySelector("#closeDialog").addEventListener("click", () => {
-    document.querySelector("#bookDialog").close();
-})
+      libraryContainer.appendChild(card);
+    });
+  }
 
-document.querySelector("#bookForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+  document
+    .querySelector("#newBookBtn")
+    .addEventListener("click", () => {
+      document.querySelector("#bookDialog").showModal();
+    });
 
-    const title = document.querySelector("#title").value;
-    const author = document.querySelector("#author").value;
-    const pages = document.querySelector("#pages").value;
-    const read = document.querySelector("#read").checked;
+  document
+    .querySelector("#closeDialog")
+    .addEventListener("click", () => {
+      document.querySelector("#bookDialog").close();
+    });
 
-    const newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
 
-    displayBooks();
-    this.reset();
-    document.querySelector("#bookDialog").close();
-})
-displayBooks()
+  document
+    .querySelector("#bookForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const title = document.querySelector("#title").value;
+      const author = document.querySelector("#author").value;
+      const pages = document.querySelector("#pages").value;
+      const read = document.querySelector("#read").checked;
+
+      myLibrary.push(new Book(title, author, pages, read));
+
+      displayBooks();
+      this.reset();
+      document.querySelector("#bookDialog").close();
+    });
+
+  displayBooks();
